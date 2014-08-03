@@ -10,7 +10,7 @@
 #    | Hotshot           | Arabian         |
 #
 #
-#   After completing step #1, all the tests in seeds_one_spec.rb should pass.
+#   After completing step #1, all the tests in spec/01_horses_spec.rb should pass.
 
 
 
@@ -25,7 +25,7 @@
 #    | Slender Sally     | 57                  | 108       |
 #    | Tiny Tim          | 54                  | 119       |
 #
-#   After completing step #2, all the tests in seeds_two_spec.rb should pass.
+#   After completing step #2, all the tests in spec/02_jockeys_spec.rb should pass.
 
 
 
@@ -46,7 +46,7 @@
 #    | Lightning Larry   | Nitro      | green             |
 #    | Slender Sally     | Hotshot    | blue              |
 #
-#   After completing step #3, all the tests in seeds_three_spec.rb should pass.
+#   After completing step #3, all the tests in spec/03_stakes_spec.rb should pass.
 
 
 
@@ -66,13 +66,10 @@
 #    | Flying Franny     | Allstar    | red               |
 #    | Tiny Tim          | Stardust   | orange            |
 #
-#   After completing step #4, all the tests in seeds_four_spec.rb should pass.
+#   After completing step #4, all the tests in spec/04_derby_spec.rb should pass.
 
 
 
 
 
-
-
-
-## end seeds
+# Lastly, try running spec/05_race_history_spec.rb Everything should pass!
