@@ -42,6 +42,9 @@ This challenge uses AR in a way you're probably not used to. It uses an in-memor
 
 Why do it this way? By doing all the work in an in-memory database you'll get faster feedback on your work. Those tedious `rake` tasks take time and only serve as a distraction.
 
+### Seed
+Follow the directions in `seeds.rb` to create your data!
+
 ### Migrations
 Create your migrations in the `migrations.rb` file.
 
