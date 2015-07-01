@@ -74,7 +74,9 @@ In order to write the desired associations, we'll need to be familiar with decla
 
 
 ## Conclusion
-Sum up the challenge.
+We should be getting comfortable with writing ActiveRecord associations.  We should be able to look at a schema and deduce the types of associations that could exist between models—whether they're belongs to or has many associations.  
+
+We should also be able to implement those associations in our models, providing configuration where convention is broken.  Do we understand why the different options need to be specified when we break convention in declaring our associations?  When do we need to specify a class name?  When do we need to specify a source?
 
 [belongs_to]: http://apidock.com/rails/ActiveRecord/Associations/ClassMethods/belongs_to
 [has_many]: http://apidock.com/rails/v4.2.1/ActiveRecord/Associations/ClassMethods/has_many
