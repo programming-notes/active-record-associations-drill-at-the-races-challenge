@@ -62,12 +62,15 @@ And then sometimes we want to break convention because it makes our code more re
 The necessary models and migrations have been provided for us.  We will need to set up the database though.  Lets bundle to make sure that the necessary gems are installed and then create and migrate our database.
 
 
-### Release 0: Description
-What should students do?
+### Release 0: Declare the Associations
+Tests for each model's associations have been written to provide feedback on the associations that we write (see the files in `spec/models/`).  When all of the test pass, our associations are written properly.
 
+In order to write the desired associations, we'll need to be familiar with declaring different types of associations:
 
-### Release 1: Description
-What should students do?
+- [:belongs_to][RailsGuides belongs_to]
+- [:has_many][RailsGuides has_many]
+- [:has_many with the :through option][RailsGuides has_many through]
+- [:has_many with the :through and :source options][StackOverflow on source]
 
 
 ## Conclusion
@@ -76,3 +79,7 @@ Sum up the challenge.
 [belongs_to]: http://apidock.com/rails/ActiveRecord/Associations/ClassMethods/belongs_to
 [has_many]: http://apidock.com/rails/v4.2.1/ActiveRecord/Associations/ClassMethods/has_many
 [RailsGuides Associations]: http://guides.rubyonrails.org/association_basics.html
+[RailsGuides belongs_to]: http://guides.rubyonrails.org/association_basics.html#the-belongs-to-association
+[RailsGuides has_many]: http://guides.rubyonrails.org/association_basics.html#the-has-many-association
+[RailsGuides has_many through]: http://guides.rubyonrails.org/association_basics.html#the-has-many-through-association
+[StackOverflow on source]: http://stackoverflow.com/questions/4632408/need-help-to-understand-source-option-of-has-one-has-many-through-of-rails
