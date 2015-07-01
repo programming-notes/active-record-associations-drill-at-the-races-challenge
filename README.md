@@ -58,8 +58,8 @@ And then sometimes we want to break convention because it makes our code more re
 
 ##Releases
 
-### Pre-release: Description
-If necessary ...
+### Pre-release: Setup
+The necessary models and migrations have been provided for us.  We will need to set up the database though.  Lets bundle to make sure that the necessary gems are installed and then create and migrate our database.
 
 
 ### Release 0: Description
