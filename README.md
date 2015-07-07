@@ -1,66 +1,87 @@
-# At the Races with ActiveRecord
+# AR Associations Drill: At the Races
 
-## Learning Goals
+## Summary
+This challenge is a drill to work with [Active Record associations][RailsGuides Associations].  We'll be working with [`:belongs_to`][belongs_to] and [`:has_many`][has_many] associations.  We'll practice breaking Active Record conventions and passing options like `:class_name`, `:through`, and `:source` when declaring associations.
 
-This challenge will give you the chance to practice advanced AR techniques including:
+![](races_schema.png)
 
-* modeling a many-to-many relationship using a join model
-* using more meaningful (non-conventional) names for associations.
-* seeding records in a complex schema
+*Figure 1*. Schema design for this challenge.
+
+We'll focus on writing associations in this challenge, but let's imagine that we're building a full application that allows for scheduling races.  Then, jockeys can sign up to ride a horse in a race.  Figure 1 shows a schema that will support this described functionality. 
+
+When our associations have been written, we'll be able to answer the following questions.
+
+*For an entry ...*
+
+1. Which jockey is entering a race?
+2. Which horse is being ridden?
+3. For which race was the entry made?
+
+*For a horse ...*
+
+1. In which races has the horse been ridden?
+2. Which jockeys have ridden the horse?
+
+*For a jockey ...*
+
+1. Which races has the jockey entered?
+2. Which horses has a jockey ridden?
+
+*For a race ...*
+
+1. Which jockeys have ridden in the race?
+2. Which horses have ridden in the race?
 
 
-## Helpful Materials
+### Breaking Convention
+Active Record provides a lot of functionality with very little code—provided that we follow its conventions.  However, sometimes it is necessary or desirable to break these conventions.
 
-If AR isn't your strong suit yet, the following material will prove helpful. You might want to read through these links before starting:
-
-* [belongs_to](http://apidock.com/rails/ActiveRecord/Associations/ClassMethods/belongs_to)
-* [has_many](http://apidock.com/rails/ActiveRecord/Associations/ClassMethods/has_many)
-
-For this challenge it's critical that you become familiar with the association options `:class_name` and `:source`. Refer to the API doc links above (under the section 'Options') for details on these options.
-
-
-## Horse Racing
-You'll be modeling a simple application for horse racing. This challenge is all about ActiveRecord, it doesn't include an interface.
-
-Your challenge is to create migrations, AR classes and seed data for the following models:
-
-1. Horse
-2. Jockey
-3. Race
-4. Appearance
-
-## Requirements
-* A race will have many appearances
-* An appearance includes the jockey, the horse, the race and the uniform color of the jockey.
-* A jockey has a `name`, `height_in_inches` and `weight`
-* A race tracks a winner, which is an appearance record (it's important we give both the jockey and horse credit!)
-
-Run the tests to see the full set of requirements.
-
-## Logistics
-This challenge uses AR in a way you're probably not used to. It uses an in-memory SQLite database. So you won't ever need to run `rake db:migrate` or `rake db:drop`. The entire database is created then dropped each time you run the tests.
-
-Why do it this way? By doing all the work in an in-memory database you'll get faster feedback on your work. Those tedious `rake` tasks take time and only serve as a distraction.
-
-### Seed
-Follow the directions in `seeds.rb` to create your data!
-
-### Migrations
-Create your migrations in the `migrations.rb` file.
-
-### Models
-Create your models in the `models.rb` file.
-
-## Running the Challenge
-There are five specs in this challenge. Run them in order:
-
+```ruby
+class User < ActiveRecord::Base
+  has_many :viewed_items, { through: views }
+  has_many :purchased_items, { through: purchases }
+  has_many :reviewed_items, { through: reviews }
+  
+  has_many :views
+  has_many :purchases
+  has_many :reviews
+end
 ```
-└── spec
-    ├── 01_horses_spec.rb
-    ├── 02_jockeys_spec.rb
-    ├── 03_stakes_spec.rb
-    ├── 04_derby_spec.rb
-    └── 05_race_history_spec.rb
-```
+*Figure 2*. Defining multiple associations between a user and items.
 
-There's a lot of failing tests, but don't be overwhelmed. Work through them one at a time.
+When might it be necessary to break conventions with regard to naming our associations?  Associations exist between models.  If a given model has two different associations with another model, they need different names.  Imagine an online shopping application with a `User` model and and `Item` model.  A user might have viewed items, purchased items, and reviewed items (see Figure 2).  
+
+All of these associations would be between `User` and `Item`. What would happen if these associations all had the same name (e.g., `:items`)?  Remember that declaring these associations creates methods for instances of `User`.  The first time we declare `has_many :items`, methods like `:items` and `:items=` are created.  What happens if a second `has_many :items` association is declared?  New `:items` and `:items=` methods would be written, essentially overwriting the first set of methods.  To avoid this, we sometimes need to break conventions in declaring associations.
+
+And then sometimes we want to break convention because it makes our code more readable.  In the example above, what would it mean for a user to have many items?  What relationship would such an association represent?  Is it viewed items, purchased items, reviewed items, items they have for sale, etc.?  As with variable and method names, we want the names of our associations to be descriptive of the actual relationship between the two models.
+
+
+##Releases
+
+### Pre-release: Setup
+The necessary models and migrations have been provided for us.  We will need to set up the database though.  Lets bundle to make sure that the necessary gems are installed and then create and migrate our database.
+
+
+### Release 0: Declare the Associations
+Tests for each model's associations have been written to provide feedback on the associations that we write (see the files in `spec/models/`).  When all of the test pass, our associations are written properly.
+
+In order to write the desired associations, we'll need to be familiar with declaring different types of associations:
+
+- [:belongs_to][RailsGuides belongs_to]
+- [:has_many][RailsGuides has_many]
+- [:has_many with the :through option][RailsGuides has_many through]
+- [:has_many with the :through and :source options][StackOverflow on source]
+
+
+## Conclusion
+We should be getting comfortable with writing ActiveRecord associations.  We should be able to look at a schema and deduce the types of associations that could exist between models—whether they're belongs to or has many associations.  
+
+We should also be able to implement those associations in our models, providing configuration where convention is broken.  Do we understand why the different options need to be specified when we break convention in declaring our associations?  When do we need to specify a class name?  When do we need to specify a source?
+
+[belongs_to]: http://apidock.com/rails/ActiveRecord/Associations/ClassMethods/belongs_to
+[has_many]: http://apidock.com/rails/v4.2.1/ActiveRecord/Associations/ClassMethods/has_many
+[RailsGuides Associations]: http://guides.rubyonrails.org/association_basics.html
+[RailsGuides belongs_to]: http://guides.rubyonrails.org/association_basics.html#the-belongs-to-association
+[RailsGuides has_many]: http://guides.rubyonrails.org/association_basics.html#the-has-many-association
+[RailsGuides has_many through]: http://guides.rubyonrails.org/association_basics.html#the-has-many-through-association
+[StackOverflow on source]: http://stackoverflow.com/questions/4632408/need-help-to-understand-source-option-of-has-one-has-many-through-of-rails
