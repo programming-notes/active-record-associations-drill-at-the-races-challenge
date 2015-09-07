@@ -38,13 +38,13 @@ Active Record provides a lot of functionality with very little code—provided t
 
 ```ruby
 class User < ActiveRecord::Base
-  has_many :viewed_items, { through: views }
-  has_many :purchased_items, { through: purchases }
-  has_many :reviewed_items, { through: reviews }
-  
   has_many :views
   has_many :purchases
   has_many :reviews
+
+  has_many :viewed_items, { through: :views }
+  has_many :purchased_items, { through: :purchases }
+  has_many :reviewed_items, { through: :reviews }
 end
 ```
 *Figure 2*. Defining multiple associations between a user and items.
